@@ -32,9 +32,12 @@ jobs:
       - name: Build website
         run: |
           mkdir -p _site
-          cp index.html _site/
-          cp styles.css _site/
-          cp script.js _site/
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='_site' \
+            --exclude='README.md' \
+            ./ _site/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
